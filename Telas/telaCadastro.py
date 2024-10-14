@@ -6,6 +6,8 @@ from .componentes.botao import Botao, BotaoTexto
 from .telaBase import TelaBase
 from .componentes.identidadeVisual import GRADIENTE, exibir_logo
 from .componentes.validar_email import ValidadorEmail
+from .componentes.validar_campos_obrigatorios import ValidadorCamposObrigatorios
+from .componentes.validar_senha import ValidadorSenhas
 
 class TelaCadastro(TelaBase):
     def __init__(self, page: ft.Page):
@@ -16,14 +18,10 @@ class TelaCadastro(TelaBase):
         return ValidadorEmail.validar(email)
 
     def validar_campos_obrigatorios(self, usuario, email, senha, confirmar_senha):
-        if not usuario or not email or not senha or not confirmar_senha:
-            return "Preencha todos os campos"
-        return None
+        return ValidadorCamposObrigatorios.validar(usuario, email, senha, confirmar_senha)
 
     def validar_senhas(self, senha, confirmar_senha):
-        if senha != confirmar_senha:
-            return "As senhas não coincidem"
-        return None
+        return ValidadorSenhas.validar(senha, confirmar_senha)
     
     def ao_clicar_registrar(self, e):
         usuario = self.campo_usuario.value
