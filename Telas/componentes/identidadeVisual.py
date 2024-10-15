@@ -36,7 +36,6 @@ ALINHAMENTO_LINHA = {
 }
 
 def exibir_logo(page_width: int):
-    print(page_width)
     if page_width > 1200:
         width, height = 300, 300
     elif 800 < page_width <= 1200:

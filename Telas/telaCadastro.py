@@ -13,15 +13,18 @@ class TelaCadastro(TelaBase):
     def __init__(self, page: ft.Page):
         super().__init__(page)
         self.db = Database()
+        self.validador_campos = ValidadorCamposObrigatorios()  
+        self.validador_senhas = ValidadorSenhas() 
+
 
     def validar_email(self, email):
         return ValidadorEmail.validar(email)
 
     def validar_campos_obrigatorios(self, usuario, email, senha, confirmar_senha):
-        return ValidadorCamposObrigatorios.validar(usuario, email, senha, confirmar_senha)
+        return self.validador_campos.validar(usuario, email, senha, confirmar_senha)
 
     def validar_senhas(self, senha, confirmar_senha):
-        return ValidadorSenhas.validar(senha, confirmar_senha)
+        return self.validador_senhas.validar(senha, confirmar_senha)
     
     def ao_clicar_registrar(self, e):
         usuario = self.campo_usuario.value
@@ -38,11 +41,11 @@ class TelaCadastro(TelaBase):
         else:
             self.db.add_user(usuario, email, senha)
             self.page.snack_bar = ft.SnackBar(ft.Text("Cadastrado com sucesso!"), open=True)
-            # Transição para a tela de login
+  
             self.page.clean()
             from .telaLogin import TelaLogin 
             login_screen = TelaLogin(self.page)
-            login_screen.show()
+            login_screen.mostrar()
 
         self.page.update()
 
