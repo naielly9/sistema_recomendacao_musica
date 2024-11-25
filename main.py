@@ -5,4 +5,5 @@ def main(page: ft.Page):
     tela_splash = TelaSplash(page)
     tela_splash.mostrar()
 
-ft.app(target=main, view=ft.WEB_BROWSER)    
+ft.app(main, view=ft.AppView.WEB_BROWSER)
+
